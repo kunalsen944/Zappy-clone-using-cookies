@@ -82,8 +82,6 @@ def cart_view(request):
     total=sum(price)
     print(img)
     dict={'price':price,'total':total,'img':img}
-    for i in price:
-        print(i)
     if not request.COOKIES.items():
         price=[]
         img=[]
