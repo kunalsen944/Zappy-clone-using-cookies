@@ -62,7 +62,12 @@ def cart_home(request):
     response=HttpResponseRedirect(reverse('zappyapp:cartr'))
     id=request.POST.get('product_id')
     item=request.POST.get('items')
-    response.set_cookie(id,item)
+    if id in request.COOKIES.keys():
+        items=int(request.COOKIES.get(id))
+        item=int(item)+items
+        response.set_cookie(id,item)
+    else:
+        response.set_cookie(id,item)
     return response
 
 def cart_view(request):
@@ -71,14 +76,16 @@ def cart_view(request):
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             price.append(Product.objects.get(id=i).price*int(j))
-            #response.set_cookie(price,price)
             print(price)
-    context={'price':price}
+    total=sum(price)
+    print(total)
+    dict={'price':price,'total':total}
     for i in price:
         print(i)
     if not request.COOKIES.items():
         price=[]
-    return render(request,'zappyapp/cartview.html',{'price':price})
+        total=0
+    return render(request,'zappyapp/cartview.html',context=dict)
 
 def cart(request):
     length=0
