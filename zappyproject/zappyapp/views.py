@@ -80,7 +80,6 @@ def cart_view(request):
             img.append(Product.objects.get(id=i).image.url)
             price.append(Product.objects.get(id=i).price*int(j))
     total=sum(price)
-    print(img)
     dict={'price':price,'total':total,'img':img}
     if not request.COOKIES.items():
         price=[]
@@ -90,7 +89,6 @@ def cart_view(request):
 
 def cart(request):
     length=0
-    print(dir(request.COOKIES))
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             length+=1
@@ -116,5 +114,19 @@ def cartdel(request):
     return response
 
 def checkout(request):
-
-    return HttpResponseRedirect(reverse('zappyapp:home'))
+    products=[]
+    for i,j in request.COOKIES.items():
+        if i.isdigit() and j.isdigit():
+            products.append(Product.objects.get(id=i).id)
+    if request.method == 'POST':
+        products=[]
+        for i,j in request.COOKIES.items():
+            if i.isdigit() and j.isdigit():
+                products.append(Product.objects.get(id=i).id)
+        ch_form = Checkout(request.POST)
+        if ch_form.is_valid():
+            ch_form.save()
+            return render(request,'zappyapp/sucess.html')
+    else:
+        ch_form = Checkout(request.POST)
+    return render(request, 'zappyapp/checkout.html',{'ch_form':ch_form})

@@ -37,7 +37,7 @@ class Customer(models.Model):
         return self.customer
 
 class Order(models.Model):
-    pid=models.ManyToManyField(Product)
+    pid=models.ManyToManyField(Product,blank=True)
     delievery_address=models.CharField(max_length=200)
     status=models.IntegerField(default=0)
 
