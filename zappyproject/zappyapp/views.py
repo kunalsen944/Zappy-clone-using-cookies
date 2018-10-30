@@ -89,6 +89,7 @@ def cart_view(request):
 
 def cart(request):
     length=0
+    print(dir(request.COOKIES))
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             length+=1

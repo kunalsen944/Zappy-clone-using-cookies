@@ -1,5 +1,28 @@
 {%extends 'zappyapp/base.html'%}
 {%block cartview%}
+<script type="text/javascript">
+$(document).ready(function(){
+  console.log("Document Loaded...");
+	$("#id_product").blur(function(){
+		var pname=$("#id_product").val();
+    console.log(pname);
+	   alert(pname);
+  $.ajax({
+			url:'checkproduct',
+      data: {
+        'pname': pname
+          },
+			type:'get',
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          alert("Product already exists.");
+          $("#id_product").val("");
+                           }
+      });
+    });
+});
+</script>
 <div class="container">
   {%if price%}
   <div class="row">
@@ -16,15 +39,10 @@
     {%if key.isdigit%}
     <tr>
       <td>{{key}}</td>
-      <td>{{value}}</td>
+      <td><input class="text-center" id="" min="1" type="number" name="{{key}}" value="{{value}}"></td>
     </tr>
     {%endif%}
     {%endfor%}
-    {%if price%}
-    <tr>
-      <td colspan="2">Total</td>
-    </tr>
-    {%endif%}
   </tbody>
 </table>
 </div>
@@ -43,7 +61,7 @@
       {%endfor%}
       {%if price%}
       <tr>
-        <td>{{total}}</td>
+        <td>Total={{total}}</td>
       </tr>
       {%endif%}
     </tbody>
