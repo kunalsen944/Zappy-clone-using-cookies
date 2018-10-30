@@ -37,9 +37,10 @@ class Customer(models.Model):
         return self.customer
 
 class Order(models.Model):
-    pid=models.ForeignKey(Product,on_delete=models.CASCADE)
+    pid=models.ManyToManyField(Product)
     delievery_address=models.CharField(max_length=200)
-    status=models.IntegerField()
+    status=models.IntegerField(default=0)
+
 
 #
 # class Cart(models.Model):

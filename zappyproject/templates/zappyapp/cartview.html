@@ -1,28 +1,5 @@
 {%extends 'zappyapp/base.html'%}
 {%block cartview%}
-<script type="text/javascript">
-$(document).ready(function(){
-  console.log("Document Loaded...");
-	$("#q2").blur(function(){
-		var quantity=$("#q2").val();
-    console.log(quantity);
-	   alert(quantity);
-  $.ajax({
-			url:'cartajax',
-      data: {
-        'quantity': quantity
-          },
-			type:'get',
-      dataType: 'json',
-      success: function (data) {
-        // if (data.is_taken) {
-        //   alert("quantity is changed");
-        //   // $("#q2").val(request.COOKIES.key());
-                           // }
-      });
-    });
-});
-</script>
 <div class="container">
   {%if price%}
   <div class="row">
@@ -38,11 +15,11 @@ $(document).ready(function(){
     {%for key,value in request.COOKIES.items%}
     {%if key.isdigit%}
     <tr>
-      <td>{{key}} &nbsp </td>
+      <td>{{key}}</td>
       <td>
       <form method="GET" action="{%url 'zappyapp:cartupdates'%}" class="form-group">
       <input type="hidden" name="product_id" value="{{key}}"/>
-      <input class="text-center"  min="1" type="number" name="items" value="{{value}}"/>
+      <input class="text-center"  min="1" max="20" type="number" name="items" value="{{value}}"/>
       </form>
       </td>
       <td>
@@ -80,7 +57,7 @@ $(document).ready(function(){
 <h1>You Dont Add Any Product to your Cart</h1>
 {%endif%}
 {%if price%}
-<form method="GET" action="" class="form-group"> <button name="" value="" type="submit"  class="btn btn btn-outline-secondary btn-sm">Checkout</button></form>
+<form method="GET" action="" class="form-group float-md-right"> <button name="" value="" type="submit"  class="btn btn btn-outline-secondary btn-sm">Checkout</button></form>
 {%endif%}
 </div>
 {%endblock cartview%}

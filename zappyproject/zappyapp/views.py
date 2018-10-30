@@ -4,7 +4,7 @@ from zappyapp.models import Product,Customer
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from zappyapp.forms import CustomerUpdate
+from zappyapp.forms import CustomerUpdate,Checkout
 # Create your views here.
 
 
@@ -115,3 +115,7 @@ def cartdel(request):
         response.delete_cookie(id)
         # print(response.del_cookies(id))
     return response
+
+def checkout(request):
+    
+    return HttpResponseRedirect(reverse('zappyapp:home'))
