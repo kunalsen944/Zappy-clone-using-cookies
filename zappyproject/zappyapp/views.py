@@ -77,9 +77,10 @@ def cart_view(request):
     img=[]
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
-            img.append(Product.objects.get(id=i).image)
+            img.append(Product.objects.get(id=i).image.url)
             price.append(Product.objects.get(id=i).price*int(j))
     total=sum(price)
+    print(img)
     dict={'price':price,'total':total,'img':img}
     for i in price:
         print(i)
@@ -117,5 +118,5 @@ def cartdel(request):
     return response
 
 def checkout(request):
-    
+
     return HttpResponseRedirect(reverse('zappyapp:home'))
