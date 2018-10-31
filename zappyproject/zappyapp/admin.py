@@ -16,5 +16,10 @@ class CustomerAdmin(admin.ModelAdmin):
     list_editable=['mobile']
 
 admin.site.register(Customer,CustomerAdmin)
-admin.site.register(Order)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display=['users','delievery_address','status']
+    list_filter=['users','status']
+    list_editable=['status']
+admin.site.register(Order,OrderAdmin)
 # admin.site.register(Cart)
