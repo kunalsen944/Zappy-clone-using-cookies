@@ -1,0 +1,34 @@
+{%extends 'zappyapp/base.html'%}
+{%block products%}
+<div class="container">
+  <div class="row">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Delievery Address</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for i in order%}
+    <tr>
+      <td>{{i.pids|slice:"1:-1"}}</td>
+      <td>{{i.delievery_address}}</td>
+      {%if i.status is 1%}
+      <td>Processing</td>
+      {%elif i.status is 0%}
+      <td>Pending</td>
+      {%elif i.status is 2%}
+      <td>Not Available</td>
+      {%endif%}
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+{%endblock products%}

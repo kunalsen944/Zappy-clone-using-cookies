@@ -2,6 +2,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    {%block refresh%}
+    {%endblock refresh%}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -45,6 +47,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{%url 'zappyapp:profile' %}">My Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{%url 'zappyapp:orderhistory' %}">Order History</a>
           </li>
           {%endif%}
           <li class="nav-item">

@@ -1,6 +1,6 @@
 from django.shortcuts import render,reverse,redirect
 from django.contrib.auth.forms import UserCreationForm
-from zappyapp.models import Product,Customer
+from zappyapp.models import Product,Customer,Order
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -114,6 +114,12 @@ def cartdel(request):
     return response
 
 @login_required
+def orderh(request):
+    order=Order.objects.filter(users=request.user).order_by('-id')
+    return render(request, 'zappyapp/orderhistory.html',{'order':order})
+
+
+@login_required
 def checkout(request):
     products=[]
     for i,j in request.COOKIES.items():
@@ -128,7 +134,8 @@ def checkout(request):
             test.save()
             response=render(request,'zappyapp/sucess.html')
             for i in request.COOKIES.keys():
-                response.delete_cookie(i)
+                if i.isdigit() or i=='length':
+                    response.delete_cookie(i)
             return response
     else:
         ch_form = Checkout(request.POST)
