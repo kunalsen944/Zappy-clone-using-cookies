@@ -62,7 +62,6 @@ def cart_home(request):
     response=HttpResponseRedirect(reverse('zappyapp:cartr'))
     id=request.POST.get('product_id')
     item=request.POST.get('items')
-    print(dir(request.COOKIES))
     if id in request.COOKIES.keys():
         items=int(request.COOKIES.get(id))
         item=int(item)+items
@@ -108,9 +107,7 @@ def cartdel(request):
     response=HttpResponseRedirect(reverse('zappyapp:cartr'))
     id=request.GET.get('product_id')
     if id in request.COOKIES.keys():
-        # request.del_cookie(id)
         response.delete_cookie(id)
-        # print(response.del_cookies(id))
     return response
 
 @login_required
