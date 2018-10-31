@@ -113,20 +113,23 @@ def cartdel(request):
         # print(response.del_cookies(id))
     return response
 
+@login_required
 def checkout(request):
     products=[]
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
-            products.append(Product.objects.get(id=i).id)
+            products.append(Product.objects.get(id=i).pname)
     if request.method == 'POST':
-        products=[]
-        for i,j in request.COOKIES.items():
-            if i.isdigit() and j.isdigit():
-                products.append(Product.objects.get(id=i).id)
         ch_form = Checkout(request.POST)
         if ch_form.is_valid():
-            ch_form.save()
-            return render(request,'zappyapp/sucess.html')
+            test=ch_form.save(commit=False)
+            test.users=request.user
+            test.pids=products
+            test.save()
+            response=render(request,'zappyapp/sucess.html')
+            for i in request.COOKIES.keys():
+                response.delete_cookie(i)
+            return response
     else:
         ch_form = Checkout(request.POST)
     return render(request, 'zappyapp/checkout.html',{'ch_form':ch_form})

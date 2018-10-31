@@ -13,4 +13,4 @@ class CustomerUpdate(forms.ModelForm):
 class Checkout(forms.ModelForm):
     class Meta:
         model=Order
-        fields=['pid','delievery_address']
+        fields=['delievery_address']

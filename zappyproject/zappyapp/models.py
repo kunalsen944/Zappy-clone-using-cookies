@@ -37,18 +37,7 @@ class Customer(models.Model):
         return self.customer
 
 class Order(models.Model):
-    pid=models.ManyToManyField(Product,blank=True,default='')
+    users=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    pids=models.TextField(null=True)
     delievery_address=models.CharField(max_length=200)
     status=models.IntegerField(default=0)
-
-
-#
-# class Cart(models.Model):
-#     user=models.OneToOneField(User, null=True, blank=True,on_delete=models.SET_NULL)
-#     products=models.ManyToManyField(Product,blank=True)
-#     total=models.DecimalField(default=0.00, max_digits=20, decimal_places=2)
-#     created=models.DateTimeField(auto_now_add=True)
-#     updated=models.DateTimeField(auto_now=True)
-#
-#     def __str__(self):
-#         return str(self.id)
