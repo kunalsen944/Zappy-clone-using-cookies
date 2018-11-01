@@ -9,7 +9,7 @@ from zappyapp.forms import CustomerUpdate,Checkout
 
 
 def home(request):
-    products=Product.objects.all()
+    products=Product.objects.all().order_by('-id')
     return render(request,'zappyapp/home.html',{'products':products})
 
 def rte(request):
