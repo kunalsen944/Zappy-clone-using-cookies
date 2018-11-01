@@ -59,15 +59,18 @@ def cart_view(request):
     products=Product.objects.all()
     price=[]
     img=[]
+    pname=[]
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             img.append(Product.objects.get(id=i).image.url)
+            pname.append(Product.objects.get(id=i).pname)
             price.append(Product.objects.get(id=i).price*int(j))
     total=sum(price)
-    dict={'price':price,'total':total,'img':img}
+    dict={'price':price,'total':total,'img':img,'pname':pname}
     if not request.COOKIES.items():
         price=[]
         img=[]
+        pname=[]
         total=0
     return render(request,'zappyapp/cartview.html',context=dict)
 
