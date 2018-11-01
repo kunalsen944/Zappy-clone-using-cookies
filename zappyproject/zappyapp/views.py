@@ -91,7 +91,7 @@ def cart(request):
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             length+=1
-    response=HttpResponseRedirect(reverse('zappyapp:home'))
+    response=HttpResponseRedirect(reverse('zappyapp:updations'))
     response.set_cookie('length',length)
     return response
 
@@ -102,6 +102,9 @@ def cartupdates(request):
     if id in request.COOKIES.keys():
         response.set_cookie(id,item)
     return response
+
+def updations(request):
+    return HttpResponseRedirect(reverse('zappyapp:cartview'))
 
 def cartdel(request):
     response=HttpResponseRedirect(reverse('zappyapp:cartr'))
