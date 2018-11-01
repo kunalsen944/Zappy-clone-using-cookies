@@ -3,7 +3,23 @@
 <div class="container">
   {%if price%}
   <div class="row">
-<div class="col-md-8">
+    <div class="col-md-2">
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col">Image</th>
+        </tr>
+        </thead>
+        <tbody>
+          {%for i in img%}
+          <tr>
+            <td><img src="{{i}}" height="45" width="45" alt=""></td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+<div class="col-md-6">
 <table class="table">
   <thead>
     <tr>
@@ -17,7 +33,7 @@
     <tr>
       <td>{{key}}</td>
       <td>
-      <form method="GET" action="{%url 'zappyapp:cartupdates'%}" class="form-group">
+      <form method="GET" action="{%url 'zappyapp:cartupdates'%}" >
       <input type="hidden" name="product_id" value="{{key}}"/>
       <input class="text-center"  min="1" max="20" type="number" name="items" value="{{value}}"/>
       </form>
