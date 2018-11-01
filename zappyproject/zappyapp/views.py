@@ -58,7 +58,7 @@ def search(request):
     else:
         return HttpResponseRedirect(reverse('zappyapp:home'))
 
-def cart_home(request):
+def addtocart(request):
     response=HttpResponseRedirect(reverse('zappyapp:cartr'))
     id=request.POST.get('product_id')
     item=request.POST.get('items')
