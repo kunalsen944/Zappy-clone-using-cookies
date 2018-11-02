@@ -27,10 +27,16 @@ Or as we say ‘Zappyness’</p>
           <div class="card-body">
             <p class="card-text">{{i.pname}}</p>
             <div class="d-flex justify-content-between align-items-center">
+              <form class="form-group" action="{%url 'zappyapp:addtocart'%}" method="POST">
+                {% csrf_token %}
               <div class="btn-group">
-                <button type="button" class="btn btn btn-outline-secondary btn-sm">Add to Cart</button>&nbsp&nbsp
-                <button type="button" class="btn btn btn-outline-secondary btn-sm">Add to Wishlist</button>
+                <input type="hidden" name="product_id" value="{{i.id}}">
+                <input type="hidden" name="product_price" value="{{i.price}}">
+                <button type="submit"  class="btn btn btn-outline-secondary btn-sm">Add to Cart</button>&nbsp&nbsp
+                <input type="number" class="text-center" name="items" value="1" min="1" max="20" step="1">
+                <!-- <button type="button" class="btn btn btn-outline-secondary btn-sm">Add to Wishlist</button> -->
               </div>
+              </form>
               <h5 class="text-muted"><i class="fa fa-rupee">{{i.price}}</i></h5>
             </div>
           </div>

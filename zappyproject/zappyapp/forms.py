@@ -11,6 +11,8 @@ class CustomerUpdate(forms.ModelForm):
 
 
 class Checkout(forms.ModelForm):
+    delievery_address=forms.CharField(required=False)
     class Meta:
         model=Order
+        widgets = {'delievery_address': forms.TextInput(attrs={'placeholder': 'Same as Billing Address'})}
         fields=['delievery_address']

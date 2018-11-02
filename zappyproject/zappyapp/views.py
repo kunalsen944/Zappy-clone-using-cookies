@@ -133,6 +133,8 @@ def cprofile(request):
 @login_required
 def checkout(request):
     products=[]
+    add=Customer.objects.get(customer=request.user).cust_address
+    print('>>>>>>>>>>>>>>',add)
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             products.append(Product.objects.get(id=i).pname)
@@ -140,6 +142,13 @@ def checkout(request):
         ch_form = Checkout(request.POST)
         if ch_form.is_valid():
             test=ch_form.save(commit=False)
+            if len(test.delievery_address):
+                pass
+            else:
+                if add is None:
+                    return HttpResponseRedirect(reverse('zappyapp:uprofile'))
+                else:
+                    test.delievery_address=add
             test.users=request.user
             test.pids=products
             test.save()
@@ -149,6 +158,6 @@ def checkout(request):
                     response.delete_cookie(i)
             return response
     else:
-        ch_form = Checkout(request.POST)
+        ch_form = Checkout()
     return render(request, 'zappyapp/checkout.html',{'ch_form':ch_form})
 # Login Required Views Ended
