@@ -5,23 +5,23 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from zappyapp.forms import CustomerUpdate,Checkout
-# Create your views here.
+
 
 
 def home(request):
-    products=Product.objects.all().order_by('-id')
+    products=Product.objects.all().order_by('-id') # Query to get all Product in decreasing order by id
     return render(request,'zappyapp/home.html',{'products':products})
 
 def readytoeat(request):
-    products=Product.objects.filter(cat_choice='rte')
+    products=Product.objects.filter(cat_choice='rte').order_by('-id') # Query to get all Product in readytoeat category in decreasing order by id
     return render(request,'zappyapp/rte.html',{'products':products})
 
 def readytocook(request):
-    products=Product.objects.filter(cat_choice='rtc')
+    products=Product.objects.filter(cat_choice='rtc').order_by('-id') # Query to get all Product in readytoeat category in decreasing order by id
     return render(request,'zappyapp/rtc.html',{'products':products})
 
 def productsdetails(request,id):
-    products=Product.objects.get(id=id)
+    products=Product.objects.get(id=id) # Query to get a Single Product in all products using an id
     return render(request,'zappyapp/productdetails.html',{'products':products})
 
 def registration(request):
@@ -34,7 +34,7 @@ def registration(request):
 
 def search(request):
     query=request.GET.get('q')
-    products=Product.objects.filter(pname__icontains=query)
+    products=Product.objects.filter(pname__icontains=query) # Search Query to search products using their Name
     if products is not None:
         return render(request,'zappyapp/home.html',{'products':products})
     else:
@@ -134,7 +134,6 @@ def cprofile(request):
 def checkout(request):
     products=[]
     add=Customer.objects.get(customer=request.user).cust_address
-    print('>>>>>>>>>>>>>>',add)
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             products.append(Product.objects.get(id=i).pname)
