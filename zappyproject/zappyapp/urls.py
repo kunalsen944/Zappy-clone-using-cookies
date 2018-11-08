@@ -20,5 +20,4 @@ urlpatterns = [
     path('cartdel',views.cartdel,name='cartdel'),
     path('checkout',views.checkout,name='checkout'),
     path('orderhistory',views.orderh,name='orderhistory'),
-    path('updations',views.updations,name='updations'),
     ]
