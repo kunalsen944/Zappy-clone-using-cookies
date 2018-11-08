@@ -1,6 +1,6 @@
 {%extends 'zappyapp/base.html'%}
 {%load crispy_forms_tags%}
-{%block products%}
+{%block account%}
 
 <div class="container">
   <br><br><br>
@@ -12,10 +12,11 @@
         {{sform|crispy}}
     </fieldset>
 <div class="form-group">
-  <button type="submit" class="btn btn-outline-info">Sign Up</button>
+  <button type="submit" class="btn btn-outline-info">Sign Up</button><br>
 </div>
   </form>
+   Already Have Account? <a href="{%url 'login'%}">Login Here</a>
 </div>
 </div>
 
-{%endblock products%}
+{%endblock account%}

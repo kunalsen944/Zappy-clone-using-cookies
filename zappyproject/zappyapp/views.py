@@ -57,9 +57,7 @@ def addtocart(request):
 
 def cart_view(request):
     products=Product.objects.all()
-    price=[]
-    img=[]
-    pname=[]
+    price, img, pname = [], [], []
     for i,j in request.COOKIES.items():
         if i.isdigit() and j.isdigit():
             img.append(Product.objects.get(id=i).image.url)
@@ -68,10 +66,7 @@ def cart_view(request):
     total=sum(price)
     dict={'price':price,'total':total,'img':img,'pname':pname}
     if not request.COOKIES.items():
-        price=[]
-        img=[]
-        pname=[]
-        total=0
+        price, img, pname, total = [], [], [], 0
     return render(request,'zappyapp/cartview.html',context=dict)
 
 
@@ -99,7 +94,7 @@ def updations(request):
 
 
 def cartdel(request):
-    response=cartitems(request)
+    response=HttpResponseRedirect(reverse('zappyapp:cartitems'))
     id=request.GET.get('product_id')
     if id in request.COOKIES.keys():
         response.delete_cookie(id)
