@@ -42,8 +42,15 @@ Or as we say ‘Zappyness’</p>
           </div>
         </div>
       </div>
+
       {%endfor%}
+      <br>
+  <button class="view-more-button btn btn-primary">View more</button>
+
     </div>
+    {% if products.has_next %}
+    <a class="pagination__next" href="?page={{ products.next_page_number }}"></a>
+  {% endif %}
   </div>
 </div>
 {%else%}
@@ -54,6 +61,18 @@ Or as we say ‘Zappyness’</p>
 </div>
 </div>
 {%endif%}
+<script type="text/javascript">
+$(".row").infiniteScroll({
+// options
+path: ".pagination__next",
+append: ".col-md-4",
+history: false,
+button: '.view-more-button',
+// load pages on button click
+scrollThreshold: false,
+// disable loading on scroll
+});
+</script>
 {%endblock products%}
 
 {%block footer%}

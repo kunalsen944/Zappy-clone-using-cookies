@@ -5,12 +5,21 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from zappyapp.forms import CustomerUpdate,Checkout
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
 def home(request):
-    products=Product.objects.all().order_by('-id') # Query to get all Product in decreasing order by id
-    return render(request,'zappyapp/home.html',{'products':products})
+    productes=Product.objects.all().order_by('-id') # Query to get all Product in decreasing order by id
+    page = request.GET.get('page', 1)
+    paginator = Paginator(productes, 6)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    return render(request,'zappyapp/home.html',{'products': products})
 
 def readytoeat(request):
     products=Product.objects.filter(cat_choice='rte').order_by('-id') # Query to get all Product in readytoeat category in decreasing order by id
