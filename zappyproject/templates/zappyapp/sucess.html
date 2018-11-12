@@ -1,0 +1,10 @@
+{%extends 'zappyapp/base.html'%}
+{%block refresh%}
+<meta http-equiv="Refresh" content="5; url={%url 'zappyapp:home'%}">
+{%endblock refresh%}
+
+
+{%block products%}
+<h1>Thanks For Using Zappy Products You Will Be Redirected To Zappy in 5 Seconds</h1>
+<p>If you see this message for more than 5 seconds, please <a href="{%url 'zappyapp:home'%}">click Here</a></p>
+{%endblock products%}

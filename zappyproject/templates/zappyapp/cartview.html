@@ -1,12 +1,45 @@
 {%extends 'zappyapp/base.html'%}
 {%block cartview%}
 <div class="container">
+  {%if price%}
   <div class="row">
-<div class="col-md-8">
+    <div class="col-md-3">
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col">Image</th>
+        </tr>
+        </thead>
+        <tbody>
+          {%for i in img%}
+          <tr>
+            <td><img src="{{i}}" height="45" width="45" alt=""></td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col">Product Name</th>
+        </tr>
+        </thead>
+        <tbody>
+          {%for i in pname%}
+          <tr>
+            <td>{{i}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+<div class="col-md-4">
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">product_id</th>
+      <!-- <th scope="col">product_id</th> -->
       <th scope="col">Quantity</th>
     </tr>
   </thead>
@@ -14,16 +47,23 @@
     {%for key,value in request.COOKIES.items%}
     {%if key.isdigit%}
     <tr>
-      <td>{{key}}</td>
-      <td>{{value}}</td>
+      <!-- <td>{{key}}</td> -->
+      <td>
+      <form method="GET" action="{%url 'zappyapp:cartupdates'%}" >
+      <input type="hidden" name="product_id" value="{{key}}"/>
+      <input class="text-center"  min="1" max="20" type="number" name="items" value="{{value}}"/>
+      </form>
+      </td>
+      <td>
+      <form method="GET" action="{%url 'zappyapp:cartdel'%}" class="form-group"> <button name="product_id" value="{{key}}" type="submit"  class="btn btn btn-outline-secondary btn-sm">Remove</button></form>
+      </td>
     </tr>
     {%endif%}
     {%endfor%}
-
   </tbody>
 </table>
 </div>
-<div class="col-md-4">
+<div class="col-md-2">
 <table class="table">
     <thead>
       <tr>
@@ -36,9 +76,28 @@
         <td>{{p}}</td>
       </tr>
       {%endfor%}
+      {%if price%}
+      <tr>
+        <td>Total={{total}}</td>
+      </tr>
+      {%endif%}
     </tbody>
 </table>
 </div>
 </div>
+{%else%}
+<div class="jumbotron">
+  <h1 class="display-4">You Dont Added Any Products</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{%url 'zappyapp:home'%}" role="button">Add Something</a>
+  </p>
+</div>
+{%endif%}
+{%if price%}
+<form method="GET" action="{%url 'zappyapp:checkout'%}" class="form-group float-md-right"> <button name="" value="" type="submit"  class="btn btn btn-outline-secondary btn-sm">Checkout</button></form>
+{%endif%}
 </div>
 {%endblock cartview%}

@@ -2,30 +2,30 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script src="{%static "js/jquery-3.3.1.min.js"%}" ></script>
+    <script src="{%static "js/infinite.js"%}" ></script>
+    <link href="{%static "favicon/favicon.ico"%}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    {%block refresh%}
+    {%endblock refresh%}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
-
     <title>Zappy Foods</title>
-    <!-- Bootstrap core CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome core CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
     <link href="{% static "css/home.css" %}" rel="stylesheet">
     <link href="{% static "css/sticky-footer.css" %}" rel="stylesheet">
   </head>
-
   <body>
-
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="{%url 'zappyapp:home'%}">Zappy Foods</a>
-
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
@@ -46,6 +46,9 @@
           <li class="nav-item">
             <a class="nav-link " href="{%url 'zappyapp:profile' %}">My Account</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{%url 'zappyapp:orderhistory' %}">Order History</a>
+          </li>
           {%endif%}
           <li class="nav-item">
             <a class="nav-link " href="{%url 'zappyapp:cartview'%}"><i class="fa fa-shopping-cart fa-2x">{{request.COOKIES.length}}</i></a>
@@ -58,22 +61,15 @@
       </div>
     </nav>
     </header>
-{%block cartview%}
-{%endblock cartview%}
+      {%block cartview%}
+      {%endblock cartview%}
     <main role="main">
-{%block products%}
-
-{%endblock products%}
+        {%block products%}
+        {%endblock products%}
     </main>
-{%block footer%}
-{%endblock footer%}
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"><\/script>')</script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-
+    {%block account%}
+    {%endblock account%}
+    {%block footer%}
+    {%endblock footer%}
   </body>
 </html>

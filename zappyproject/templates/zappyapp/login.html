@@ -1,24 +1,32 @@
 {%extends 'zappyapp/base.html'%}
 {%load crispy_forms_tags%}
-{%block products%}
+{%block account%}
 <div class="container">
 <br><br><br>
     <div class="content-section" >
+      <legend class="border-bottom mb-4">Login</legend>
       <form method="post">
         {%csrf_token%}
         <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Login</legend>
+
             {{form|crispy}}
         </fieldset>
     <div class="form-group">
       <button type="submit" class="btn btn-outline-info">Login</button>
     </div>
       </form>
-      <div class="border-top pt-3">
-
-    </div>
-    </div>
-  </div>
 </div>
+  <br>
+  Don't Have Account? <a href="{%url 'zappyapp:registration'%}">Create Here</a>
+</div>
+{%endblock account%}
 
-{%endblock products%}
+{%block footer%}
+
+<footer class="footer">
+  <div class="container">
+    <div class="copy-footer container-fluid text-center">Copyright &reg; 2015 Zappyfoods.in All rights reserved.</div>
+  </div>
+</footer>
+
+{%endblock footer%}
