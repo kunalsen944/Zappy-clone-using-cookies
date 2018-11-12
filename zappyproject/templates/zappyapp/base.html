@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Custom JS -->
     <script src="{%static "js/jquery-3.3.1.min.js"%}" ></script>
     <script src="{%static "js/infinite.js"%}" ></script>
     <link href="{%static "favicon/favicon.ico"%}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
@@ -51,11 +52,11 @@
           </li>
           {%endif%}
           <li class="nav-item">
-            <a class="nav-link " href="{%url 'zappyapp:cartview'%}"><i class="fa fa-shopping-cart fa-2x">{{request.COOKIES.length}}</i></a>
+            <a class="nav-link " href="{%url 'zappyapp:cartview'%}"><i class="fa fa-shopping-cart fa-2x">{%if request.COOKIES.length != '0'%}{{request.COOKIES.length}}{%endif%}</i></a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{% url 'zappyapp:search' %}" method="GET">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search..." name="q" value="{{request.get.q}}" aria-label="Search">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search..." name="q" value="{{request.GET.q}}" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>

@@ -13,14 +13,14 @@
         <tbody>
           {%for i in img%}
           <tr>
-            <td><img src="{{i}}" height="45" width="45" alt=""></td>
+            <td><img src="{{i}}" height="25" width="45" alt=""></td>
           </tr>
           {%endfor%}
         </tbody>
       </table>
     </div>
     <div class="col-md-3">
-      <table class="table">
+      <table class="table table-md">
         <thead>
           <tr>
           <th scope="col">Product Name</th>
@@ -47,11 +47,10 @@
     {%for key,value in request.COOKIES.items%}
     {%if key.isdigit%}
     <tr>
-      <!-- <td>{{key}}</td> -->
       <td>
       <form method="GET" action="{%url 'zappyapp:cartupdates'%}" >
       <input type="hidden" name="product_id" value="{{key}}"/>
-      <input class="text-center"  min="1" max="20" type="number" name="items" value="{{value}}"/>
+      <input class="text-center control-sm"  min="1" max="50" type="number" name="items" value="{{value}}"/>
       </form>
       </td>
       <td>

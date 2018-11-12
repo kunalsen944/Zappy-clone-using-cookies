@@ -22,7 +22,7 @@ class Customer(models.Model):
     images = models.ImageField(upload_to='Customers',default='Customers/default.jpg')
 
     def __str__(self):
-        return self.customer
+        return self.mobile
 
 
 class Order(models.Model):
