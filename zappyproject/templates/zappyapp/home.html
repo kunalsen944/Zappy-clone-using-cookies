@@ -73,6 +73,29 @@ scrollThreshold: false,
 // disable loading on scroll
 });
 </script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#id_product").blur(function(){
+		var pname=$("#id_product").val();
+    console.log(pname);
+	   alert(pname);
+  $.ajax({
+			url:'checkproduct',
+      data: {
+        'pname': pname
+          },
+			type:'get',
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          alert("Product already exists.");
+          $("#id_product").val("");
+                           }
+      });
+    });
+});
+</script>
 {%endblock products%}
 
 {%block footer%}

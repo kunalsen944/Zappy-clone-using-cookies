@@ -34,12 +34,12 @@ def productsdetails(request,id):
     return render(request,'zappyapp/productdetails.html',{'products':products})
 
 def registration(request):
-    sform=UserCreationForm(request.POST or None)
-    if sform.is_valid():
-        new_user=sform.save()
+    reg_form=UserCreationForm(request.POST or None)
+    if reg_form.is_valid():
+        new_user=reg_form.save()
         return HttpResponseRedirect(reverse('zappyapp:home'))
 
-    return render(request,'zappyapp/registration.html',{'sform':sform})
+    return render(request,'zappyapp/registration.html',{'reg_form':reg_form})
 
 def search(request):
     query=request.GET.get('q')
