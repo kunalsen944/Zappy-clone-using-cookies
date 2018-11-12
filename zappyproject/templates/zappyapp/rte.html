@@ -12,8 +12,6 @@ Or as we say ‘Zappyness’</p>
     </p>
   </div>
 </section>
-
-
 <div class="album py-5 bg-light">
   <div class="container">
 <h1>Latest items</h1>
@@ -26,8 +24,7 @@ Or as we say ‘Zappyness’</p>
           <div class="card-body">
             <p class="card-text">{{i.pname}}</p>
             <div class="d-flex justify-content-between align-items-center">
-              <form class="form-group" action="{%url 'zappyapp:addtocart'%}" method="POST">
-                {% csrf_token %}
+              <form class="form-group" action="{%url 'zappyapp:addtocart'%}" method="GET">
               <div class="btn-group">
                 <input type="hidden" name="product_id" value="{{i.id}}">
                 <input type="hidden" name="product_price" value="{{i.price}}">
@@ -49,12 +46,10 @@ Or as we say ‘Zappyness’</p>
 <div class="album py-5 bg-light" id="nop">
   <div class="container text-center">
 <h1>No Products To Display</h1>
-
 </div>
 </div>
 {%endif%}
 {%endblock products%}
-
 {%block footer%}
 {%if products%}
 <footer class="footer">

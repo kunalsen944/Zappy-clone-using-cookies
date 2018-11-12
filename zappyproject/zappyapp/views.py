@@ -36,15 +36,22 @@ def productsdetails(request,id):
 def registration(request):
     reg_form=UserCreationForm(request.POST or None)
     if reg_form.is_valid():
-        new_user=reg_form.save()
+        reg_form.save()
         return HttpResponseRedirect(reverse('zappyapp:home'))
-
     return render(request,'zappyapp/registration.html',{'reg_form':reg_form})
 
 def search(request):
     query=request.GET.get('q')
-    products=Product.objects.filter(pname__icontains=query) # Search Query to search products using their Name
-    if products is not None:
+    productes=Product.objects.filter(pname__icontains=query) # Search Query to search products using their Name
+    if productes is not None:
+        page = request.GET.get('page', 1)
+        paginator = Paginator(productes, 6)
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
         return render(request,'zappyapp/home.html',{'products':products})
     else:
         return HttpResponseRedirect(reverse('zappyapp:home'))
@@ -53,15 +60,16 @@ def search(request):
 
 def addtocart(request):
     response=HttpResponseRedirect(reverse('zappyapp:cartitems'))
-    id=request.POST.get('product_id')
-    item=request.POST.get('items')
+    id=request.GET.get('product_id')
+    item=request.GET.get('items')
+    print(dir(request.COOKIES))
+    print(request.COOKIES.items())
     if id in request.COOKIES.keys():
         items=int(request.COOKIES.get(id))
         item=int(item)+items
         response.set_cookie(id,item)
     else:
         response.set_cookie(id,item)
-    print(request.COOKIES.items())
     return response
 
 
