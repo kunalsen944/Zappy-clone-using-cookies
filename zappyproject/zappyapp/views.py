@@ -61,6 +61,7 @@ def addtocart(request):
         response.set_cookie(id,item)
     else:
         response.set_cookie(id,item)
+    print(request.COOKIES.items())
     return response
 
 
@@ -90,7 +91,7 @@ def cartitems(request):
 
 
 def cartupdates(request):
-    response=cartitems(request)
+    response=updations(request)
     id=request.GET.get('product_id')
     item=request.GET.get('items')
     if id in request.COOKIES.keys():
